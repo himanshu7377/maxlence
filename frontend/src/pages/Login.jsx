@@ -4,12 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { ImGithub } from "react-icons/im";
 import { BsTwitterX } from "react-icons/bs";
-// import { loginUserApi } from "../constants/apiUrls";
+import { reuseInputClassnames } from "../constants/adminConstants";
+import { loginUserApi } from "../constants/apiUrl";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { setUser } from "../store/slices/userSlice";
+import Spinner from "../components/Spinner";
 
 const Login = () => {
-    const Loginurl='http://localhost:8000/api/auth/login'
 	const [isLoading, setIsLoading] = useState(false);
 
 	const {
@@ -18,56 +21,78 @@ const Login = () => {
 		formState: { errors },
 	} = useForm();
 
+	const [userData, setUserData] = useState([]);
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
+	const token2=localStorage.getItem("token")
+
+	console.log("token2",token2)
+
+	const user = useSelector((store) => store.user.userDetails);
+
+	useEffect(() => {
+		if (userData?.token || user?.token) {
+			navigate("/");
+		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [user]);
 
 	const onSubmit = async (fieldsData) => {
 		setIsLoading(true);
-
-		const headersList = {
-			Accept: "*/*",
-			"Content-Type": "application/json",
-		};
-
+	
 		const bodyContent = JSON.stringify({
 			email: fieldsData.email,
 			password: fieldsData.password,
 		});
 
-		const reqOptions = {
-			url: Loginurl,
-			method: "POST",
-			headers: headersList,
-			data: bodyContent,
-		};
+	
 
+	
 		try {
-			const response = await axios.request(reqOptions);
-
+			const response = await axios.post(loginUserApi, bodyContent, {
+				headers: {
+					"Content-Type": "application/json",
+					
+				},
+			});
+	
 			if (!response.data) {
-				console.log("");
 				return toast.error(response.data.message || "User login Failed");
 			}
+	
+			const { token, user } = response.data.data;
 
+			console.log(response.data.data)
+	
+			// Save token to local storage
+			localStorage.setItem("token", token);
+			
+	
+			dispatch(setUser(user));
+	
+			setUserData(response.data.data);
+			navigate('/')
+	
 			setIsLoading(false);
-			toast.success(`${response.data?.message || "Successfully logged in!"}`);
-			navigate("/");
-
+			return toast.success(`${response.data?.message || "Successfully logged in!"}`);
 		} catch (error) {
 			setIsLoading(false);
 			console.log(error);
-
+	
 			if (error.response && error.response.status === 400) {
 				// Handle bad request error
 				return toast.error("Bad request. Please check your inputs.");
 			}
-
+	
 			// Handle other errors
 			return toast.error(
 				error.response.data.data?.message || "An error occurred. Please try again later."
 			);
 		}
 	};
-
+	
 	return (
 		<div className='flex justify-center items-center '>
 			<div className='w-full max-w-xl p-6 mt-32 space-y-8 sm:p-8 bg-white rounded-lg shadow dark:shadow shadow-slate-600 dark:bg-gray-800'>
@@ -87,7 +112,7 @@ const Login = () => {
 							name='email'
 							id='email'
 							{...register("email", { required: true })}
-							className='w-full py-2 px-4 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:text-white'
+							className={`${reuseInputClassnames}`}
 							placeholder='email@company.com'
 						/>
 						{errors.email && (
@@ -110,7 +135,7 @@ const Login = () => {
 							id='password'
 							{...register("password", { required: true })}
 							placeholder='Enter your password'
-							className='w-full py-2 px-4 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:text-white'
+							className={`${reuseInputClassnames}`}
 						/>
 						{errors.password && (
 							<span className='text-red-500 text-left w-full flex mt-2 ml-1'>
@@ -152,9 +177,7 @@ const Login = () => {
 						<span className='mr-2 '>Login</span>
 						{isLoading && (
 							<span className='pt-1'>
-								<div className='spinner-border spinner-border-sm text-light' role='status'>
-									<span className='visually-hidden'>Loading...</span>
-								</div>
+								<Spinner />
 							</span>
 						)}
 					</button>

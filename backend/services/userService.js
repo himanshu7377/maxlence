@@ -33,6 +33,7 @@ const userService = {
         try {
             // Fetch the current user data
             const currentUser = await User.findByPk(userId);
+            console.log("current user from update user func",currentUser)
             if (!currentUser) {
                 throw new Error('User not found');
             }
@@ -51,7 +52,7 @@ const userService = {
             });
 
             if (rowsUpdated === 0) {
-                throw new Error('User not found');
+                throw new Error('User not found rowsupdated ==0');
             }
 
             // Fetch the updated user data after the update operation

@@ -1,22 +1,31 @@
-import { BrowserRouter ,Routes, Route } from "react-router-dom";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
-import VerifyEmail from "./pages/VerifyEmail";
-import './index.css'
-import './App.css'
-function App() {
-  return (
-    <BrowserRouter>
+import { useNavigate } from "react-router-dom";
+import Dashboard from "./pages/Dashboard.jsx";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import Spinner from "./components/Spinner.jsx";
 
-<Routes>
-      <Route path="/register" element={<Register/>} />
-      <Route path="/login" element={<Login/>} />
-      <Route path="/verifyemail/:token" element={<VerifyEmail/>} />
-      {/* Other routes */}
-    </Routes>
-    </BrowserRouter>
-    
-  );
-}
+const App = () => {
+	const navigate = useNavigate();
+	const user = useSelector((store) => store.user.userDetails);
+	// console.log(user);
+	const isLoading = useSelector((store) => store.user.isLoading);
+
+	useEffect(() => {
+		if (!user) {
+			toast.warn(`You are not logged in!`);
+			navigate("/login");
+		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [user]);
+
+	return (
+		<>
+			{isLoading ? <Spinner /> : ""}
+			<Dashboard />
+		</>
+	);
+};
 
 export default App;

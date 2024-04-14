@@ -3,6 +3,7 @@ const router = express.Router();
 const authController = require('../controllers/authController.js');
 const upload = require("../middleware/multerMiddleware.js");
 const { verifyJWT } = require('../middleware/authMiddleware.js');
+const userService=require("../services/userService.js")
 
 
 router.post('/register', upload.single("avatar"), authController.register);
@@ -11,6 +12,6 @@ router.patch('/change-password', verifyJWT, authController.changePassword);
 
 router.post('/forgot-password', authController.forgotPassword);
 router.post('/reset-password/:token', authController.resetPassword);
-router.put('/verifyemail/:token', authController.verifyEmail);
+router.put('/verifyemail/:emailVerificationToken', authController.verifyEmail);
 
 module.exports = router;

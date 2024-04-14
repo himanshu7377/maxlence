@@ -79,6 +79,9 @@ exports.resetPassword = async (req, res) => {
 
         res.status(500).json({ error, message: error?.message || 'Internal server error' });
     }
+
+
+    
 };
 
 
@@ -101,14 +104,14 @@ exports.resetPassword = async (req, res) => {
 
 // Function to handle email verification
 exports.verifyEmail = async (req, res) => {
-    const { token } = req.params;
+    const { emailVerificationToken } = req.params;
 
-        //  console.log("email token from verifyemail function ",token)
+         console.log("email token from verifyemail function ",emailVerificationToken)
     
 
     try {
         // Find the user by verification token
-        const user = await User.findOne({ where: { token: token } });
+        const user = await User.findOne({ where: { emailVerificationToken: emailVerificationToken } });
         // console.log("user detail from verifyemail function",user)
 
         if (!user) {

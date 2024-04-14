@@ -1,38 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { verifyemailApi } from '../constants/apiUrl';
 import axios from 'axios'; // Import Axios for making HTTP requests
 
 const VerifyEmail = () => {
   const navigate = useNavigate();
-  const { token } = useParams(); // Extract the token from the URL
-  console.log(token)
+  const { emailVerificationToken } = useParams(); // Extract the token from the URL
+  console.log("token from verifyemail.jsx", emailVerificationToken);
   const [verificationStatus, setVerificationStatus] = useState('');
 
   useEffect(() => {
     const verifyToken = async () => {
-        try {
-            const response = await axios.put(`http://localhost:8000/api/auth/verifyemail/${token}`);
-            // Check the response status to determine the outcome
-            if (response.status === 200) {
-                // If verification is successful, update state with success message
-                setVerificationStatus('success');
-                navigate('/login')
-            } else {
-                // If the response status is not 200, consider it as an error
-                setVerificationStatus('error');
-            }
+      try {
+        const response = await axios.put(`${verifyemailApi}/${emailVerificationToken}`);
 
-        } catch (error) { 
-            // If there's an error in the request, update state with error message
-            setVerificationStatus('error');
-            console.error('Error verifying token:', error);
+        console.log('Response from server:', response);
+
+        // Check the response status to determine the outcome
+        if (response.status == 200) {
+          // If verification is successful, update state with success message
+          setVerificationStatus('success');
+          // navigate('/login');
+        } else {
+          // If the response status is not 200, consider it as an error
+          setVerificationStatus('error');
         }
-    }
-      
+      } catch (error) {
+        // If there's an error in the request, update state with error message
+        setVerificationStatus('error');
+        console.error('Error verifying token:', error);
+      }
+    };
 
     verifyToken();
-  }, [token]);
+  }, [emailVerificationToken, navigate]);
 
   useEffect(() => {
     console.log("verificationStatus is", verificationStatus);

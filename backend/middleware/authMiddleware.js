@@ -4,7 +4,16 @@ const { getUserById } = require('../services/userService');
 // Verify JWT token
 const verifyJWT = async (req, res, next) => {
     try {
-        const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "");
+        let token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "");
+
+       
+
+        if (!token) {
+            // If token is not found in cookies or headers, check localStorage
+            token = req.headers["authorization"]?.split(" ")[1] ;
+        }
+
+        console.log("token from verifyjwt", token);
 
         if (!token) {
             throw new Error("Unauthorized request");
@@ -30,7 +39,8 @@ const verifyJWT = async (req, res, next) => {
 // Check if the user is authenticated and has the admin role
 const isAdmin = (req, res, next) => {
     console.log(req.user.role);
-    console.log(req.body);
+    // console.log(req.body);
+    console.log("this func is running : isAdmin")
 
     if (req.user && req.user.role === 'admin') {
         // User is an admin, proceed to the next middleware or route handler

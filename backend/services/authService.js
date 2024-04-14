@@ -54,14 +54,15 @@ const registerUser = async (userData, localFilePath) => {
             email: userData.email,
             password: hashedPassword,
             avatar: cloudinaryResponse?.secure_url || "https://as2.ftcdn.net/v2/jpg/02/44/43/69/1000_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg",
-            token: verificationToken, // Assign the verification token to the user
+
             role: userData.role,
+            emailVerificationToken:verificationToken
         });
 
         // Send email verification
         await sendEmailVerification(userData.email, verificationToken, origin);
 
-        return newUser;
+        return  newUser;
 
     } catch (error) {
         throw error;
@@ -88,6 +89,7 @@ const loginUser = async (email, password) => {
 
         // Generate JWT token
         const token = generateToken(user);
+        console.log("jwt token from backend",token)
 
         // Return the user details along with the token
         return { statusCode: 200, status: true, message: 'Successfully logged in', token: token, user: user };

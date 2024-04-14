@@ -7,15 +7,15 @@ const upload = require("../middleware/multerMiddleware.js");
 
 
 
-router.get('/', userController.getAllUser);
-router.get('/:id', userController.getUserById);
+router.get('/', verifyJWT,userController.getAllUser);
+router.get('/:id',verifyJWT, userController.getUserById);
 
 
 // Admin routes
 // router.patch('/update', verifyJWT, isAdmin, userController.updateUser);
 
 router.put('/update/avatar', upload.single("avatar"), verifyJWT, userController.updateUserAvatar);
-router.patch('/update', verifyJWT, userController.updateUser);
+router.patch('/update',verifyJWT,isAdmin, userController.updateUser);
 router.delete('/delete', verifyJWT, isAdmin, userController.deleteUser);
 
 module.exports = router;
