@@ -13,7 +13,7 @@ const dbConfig = {
         "DB_PORT": 3306,
         "DB_NAME": "defaultdb",
         "DB_USER_NAME": "root",
-        "DB_PASSWORD": "Himanshu@7377"
+        "DB_PASSWORD2": process.env.DB_PASSWORD2
     },
     testing: {
         "DB_HOST": "localhost",
