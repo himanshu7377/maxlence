@@ -5,7 +5,7 @@ const dbConfig = {
         "DB_PORT": 14738,
         "DB_NAME": "user",
         "DB_USER_NAME": "avnadmin",
-        "DB_PASSWORD": "AVNS_u0pEwhuWWUjbmQ59G-f",
+        "DB_PASSWORD": process.env.DB_PASSWORD,
 
     },
     development: {
