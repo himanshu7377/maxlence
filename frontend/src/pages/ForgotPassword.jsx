@@ -20,7 +20,7 @@ const ForgotPassword = () => {
             const response = await axios.post(forgotPasswordApi, { email: data.email });
             console.log(response.data);
             reset(); // Reset the form fields
-            navigate("/change-password", { state: { email: data.email } }); // Navigate to the change password page
+            navigate("/login", { state: { email: data.email } }); // Navigate to the change password page
             toast.success("Reset link has been sent. Check your email.");
         } catch (error) {
             console.error(error);
