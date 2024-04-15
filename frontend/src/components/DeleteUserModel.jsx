@@ -10,14 +10,13 @@ import { toast } from "react-toastify";
 import Spinner from "./Spinner";
 import handleModelClose from "../utils/handleModelClose";
 import { motion } from "framer-motion";
+import {addTokenToHeaders} from '../constants/addTokenToHeaders'
 
 const DeleteUserModel = ({ userId, setIsDeleteUserModelOpen, setNeedReload }) => {
 	const [isLoading, setIsLoading] = useState(false);
 
 	const loggedInUser = useSelector((store) => store.user.userDetails);
-	// console.log(loggedInUser);
-
-	// console.log(userId);
+	
 
 	const ref = useRef(null);
 
@@ -27,17 +26,19 @@ const DeleteUserModel = ({ userId, setIsDeleteUserModelOpen, setNeedReload }) =>
 
 	const handledDeleteUser = async () => {
 		try {
-			if (!loggedInUser.role === "admin") {
+			console.log("login user role",loggedInUser.role)
+			if (loggedInUser.role !== "admin") {
 				return toast.warn(`You are not an admin !`);
 			}
 			setIsLoading(true);
 
-			// console.log("Deleting......");
+			
 			let headersList = {
 				Accept: "*/*",
-				Authorization: `Bearer ${loggedInUser.token}`,
+				
 				"Content-Type": "application/json",
 			};
+			addTokenToHeaders()
 
 			let bodyContent = JSON.stringify({
 				userId,
@@ -51,7 +52,7 @@ const DeleteUserModel = ({ userId, setIsDeleteUserModelOpen, setNeedReload }) =>
 			};
 
 			let response = await axios.request(reqOptions);
-			// console.log(response);
+		
 
 			if (!response.data.success) {
 				return toast.error(response.data.message || "User Deletion Failed");

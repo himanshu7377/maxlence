@@ -9,7 +9,7 @@ const verifyJWT = async (req, res, next) => {
        
 
         if (!token) {
-            // If token is not found in cookies or headers, check localStorage
+            // If token is not found in cookies or headers
             token = req.headers["authorization"]?.split(" ")[1] ;
         }
 

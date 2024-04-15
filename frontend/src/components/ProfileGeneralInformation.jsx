@@ -10,6 +10,7 @@ import { useState } from "react";
 import { setUser } from "../store/slices/userSlice";
 import Spinner from "./Spinner";
 import { toast } from "react-toastify";
+import { addTokenToHeaders } from "../constants/addTokenToHeaders";
 
 const ProfileGeneralInformation = () => {
 	const {
@@ -27,9 +28,10 @@ const ProfileGeneralInformation = () => {
 
 	const onSubmit = async (localData) => {
 		try {
+			addTokenToHeaders()
 			const headersList = {
 				Accept: "*/*",
-				Authorization: `Bearer ${user.token}`,
+
 				"Content-Type": "application/json",
 			};
 

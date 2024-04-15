@@ -5,7 +5,7 @@ import { updateUserAvatarApi } from "../constants/apiUrl";
 import { toast } from "react-toastify";
 import { setUser } from "../store/slices/userSlice";
 import Spinner from "../components/Spinner";
-import ProfilePasswordInformation from "../components/ProfilePasswordInformation";
+import {addTokenToHeaders} from '../constants/addTokenToHeaders'
 import ProfileGeneralInformation from "../components/ProfileGeneralInformation";
 
 const Profile = () => {
@@ -38,9 +38,10 @@ const Profile = () => {
 				return toast.warn(`Please Select avatar file!`);
 			}
 			setIsLoading(true);
+			addTokenToHeaders()
 			const headersList = {
 				Accept: "*/*",
-				Authorization: `Bearer ${loggedInUser?.token}`,
+
 			};
 
 			const formData = new FormData();
@@ -134,12 +135,7 @@ const Profile = () => {
 					<>
 						<ProfileGeneralInformation />
 					</>
-					<div className='p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800'>
-						<h3 className='mb-4 text-xl font-semibold dark:text-white'>
-							Password information
-						</h3>
-						<ProfilePasswordInformation />
-					</div>
+					
 				</div>
 			</div>
 		</div>

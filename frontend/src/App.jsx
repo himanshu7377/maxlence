@@ -8,7 +8,7 @@ import Spinner from "./components/Spinner.jsx";
 const App = () => {
 	const navigate = useNavigate();
 	const user = useSelector((store) => store.user.userDetails);
-	// console.log(user);
+	
 	const isLoading = useSelector((store) => store.user.isLoading);
 
 	useEffect(() => {

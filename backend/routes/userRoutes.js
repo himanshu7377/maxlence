@@ -11,8 +11,6 @@ router.get('/', verifyJWT,userController.getAllUser);
 router.get('/:id',verifyJWT, userController.getUserById);
 
 
-// Admin routes
-// router.patch('/update', verifyJWT, isAdmin, userController.updateUser);
 
 router.put('/update/avatar', upload.single("avatar"), verifyJWT, userController.updateUserAvatar);
 router.patch('/update',verifyJWT,isAdmin, userController.updateUser);

@@ -78,7 +78,7 @@ const router = createBrowserRouter([
 		),
 	},
 	{
-		path: "/reset-password/:resetToken",
+		path: "/resetpassword/:resetToken",
 		element: (
 			<>
 				<NavBar />
@@ -91,10 +91,7 @@ const router = createBrowserRouter([
 		element: (
 			<>
 				<NotFound />
-				{/* <div>Page Not Found</div>
-				<a href='/login' className='py-2 px-5 bg-blue-600'>
-					goto home
-				</a> */}
+				
 			</>
 		),
 	},

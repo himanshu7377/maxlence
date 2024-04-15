@@ -28,7 +28,7 @@ const ResetPassword = () => {
 				password: data.password,
 			});
 
-			// const resetToken = "6a5eb357-31a6-4837-8f19-877f54b7a1e3"; // You might want to handle token retrieval differently
+
 			const reqOptions = {
 				url: `${resetPasswordApi}/${resetToken}`,
 				method: "POST",

@@ -19,9 +19,7 @@ const uploadOnCloudinary = async (localFilePath) => {
         //upload the file on cloudinary!
         const response = await cloudinary.v2.uploader.upload(localFilePath, { timeout: 120000 });
         // file has been uploaded successfully
-        // console.log("file is uploaded on cloudinary ", response); 
-
-        // Remove the locally saved temporary file if an error occurred
+        
         if (fs.existsSync(localFilePath)) {
             fs.unlinkSync(localFilePath);
         }

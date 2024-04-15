@@ -33,7 +33,7 @@ const userService = {
         try {
             // Fetch the current user data
             const currentUser = await User.findByPk(userId);
-            console.log("current user from update user func",currentUser)
+            // console.log("current user from update user func",currentUser)
             if (!currentUser) {
                 throw new Error('User not found');
             }
@@ -91,9 +91,8 @@ const userService = {
             // Handle specific error cases
             if (error.message === 'User not found') {
                 throw new Error('User not found. Unable to update avatar.');
-            } else if (error.code === 'SOME_SPECIFIC_ERROR_CODE') {
-                // Handle specific error code
-            } else {
+            } 
+             else {
                 // For other errors, log and throw a generic error message
                 console.error('An error occurred:', error);
                 throw new Error('Failed to update avatar. Please try again later.');
@@ -111,6 +110,7 @@ const userService = {
                 throw new Error('User not found');
             }
         } catch (error) {
+            console.log(error)
             throw error;
         }
     }

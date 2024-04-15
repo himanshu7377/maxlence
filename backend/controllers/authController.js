@@ -48,7 +48,7 @@ exports.changePassword = async (req, res) => {
 };
 
 
-// To be implement
+
 exports.forgotPassword = async (req, res) => {
     try {
         // Call forgotPassword function from authService
@@ -65,7 +65,6 @@ exports.forgotPassword = async (req, res) => {
 };
 
 
-// To be implement
 exports.resetPassword = async (req, res) => {
     try {
         // Call resetPassword function from authService
@@ -85,22 +84,7 @@ exports.resetPassword = async (req, res) => {
 };
 
 
-// //  Route to handle email verification
-// exports.verifyEmail = async (req, res) => {
-//     const { token } = req.params;
-//     console.log("email token from verifyemail function ",token)
 
-//     try {
-//         // Call verifyEmail function from authService
-//         await authService.verifyEmail(token);
-
-//         // Redirect the user to the login page (replace '/login' with your actual login page route)
-//         res.redirect('/login');
-//     } catch (error) {
-//         console.error('Error verifying email:', error);
-//         res.status(500).json({ message: 'Error verifying email', error });
-//     }
-// };
 
 // Function to handle email verification
 exports.verifyEmail = async (req, res) => {

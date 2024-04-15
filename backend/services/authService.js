@@ -1,7 +1,7 @@
 const User = require('../models/User.js');
 const bcrypt = require('bcrypt');
 const { v4: uuidv4 } = require('uuid');
-const { sendEmailVerification } = require('./emailService.js');
+const { sendEmailVerification,sendPasswordResetLink } = require('./emailService.js');
 const generateToken = require('../utils/generateToken.js');
 const { uploadOnCloudinary } = require('../utils/cloudinary.js');
 
@@ -23,9 +23,7 @@ const verifyEmail = async (req, res) => {
         user.emailVerified = true;
         await user.save();
 
-        // Redirect the user to the login page (replace '/login' with your actual login page route)
-    //    res.redirect('/login');
-    // Send response indicating successful email verification
+       
     return res.status(200).json({ message: 'Email verification successful' });
     } catch (error) {
         console.error('Error verifying email:', error);
@@ -46,7 +44,7 @@ const registerUser = async (userData, localFilePath) => {
         // Upload avatar to Cloudinary
         const cloudinaryResponse = await uploadOnCloudinary(localFilePath);
         const origin = 'him.singh7069@gmail.com'
-        // console.log("origin-->",origin)
+
         // Create a new user in the database
         const newUser = await User.create({
             
@@ -137,10 +135,11 @@ const forgotPassword = async (email, origin) => {
         await user.update({ resetToken });
 
         // Send password reset email with reset link
-        await sendPasswordResetEmail(email, resetToken, origin);
+        await sendPasswordResetLink(email, resetToken, origin);
 
         return { message: 'Password reset email sent successfully' };
     } catch (error) {
+        console.log("err from forgotpassword authservices",error )
         throw error;
     }
 };
@@ -162,6 +161,8 @@ const resetPassword = async (token, newPassword) => {
 
         return { message: 'Password reset successfully' };
     } catch (error) {
+        console.log("error from resetpassword authservice",error)
+
         throw error;
     }
 };

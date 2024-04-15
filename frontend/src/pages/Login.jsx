@@ -25,9 +25,9 @@ const Login = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const token2=localStorage.getItem("token")
+	
 
-	console.log("token2",token2)
+	
 
 	const user = useSelector((store) => store.user.userDetails);
 
@@ -184,11 +184,11 @@ const Login = () => {
 
 					<div className='social-accounts flex w-full items-center justify-center gap-6 md:gap-6'>
 						<div id='google' className='cursor-pointer' title='Login with Google'>
-							{/* onClick={loginWithGoogle} */}
+							
 							<FcGoogle size={35} />
 						</div>
 						<div id='twitter' className='cursor-pointer' title='Login with Twitter'>
-							{/* onClick={loginWithTwitter} */}
+							
 							<BsTwitterX size={30} />
 						</div>
 						<div
@@ -196,7 +196,7 @@ const Login = () => {
 							className='cursor-pointer dark:text-white text-black'
 							title='Login with Github'
 						>
-							{/* onClick={loginWithGitHub} */}
+						
 							<ImGithub size={35} />
 						</div>
 					</div>

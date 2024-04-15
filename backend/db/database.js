@@ -9,7 +9,7 @@ const sequelize = new Sequelize(DB_NAME, DB_USER_NAME, DB_PASSWORD, {
     host: DB_HOST,
     port: DB_PORT,
     dialect: 'mysql',
-    logging: false, // Disable logging SQL queries (optional)
+    logging: false, 
 });
 
 // Test the database connection

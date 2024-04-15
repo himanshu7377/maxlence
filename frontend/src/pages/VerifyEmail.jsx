@@ -21,7 +21,7 @@ const VerifyEmail = () => {
         if (response.status == 200) {
           // If verification is successful, update state with success message
           setVerificationStatus('success');
-          // navigate('/login');
+         
         } else {
           // If the response status is not 200, consider it as an error
           setVerificationStatus('error');

@@ -20,7 +20,7 @@ exports.getUserById = async (req, res) => {
         // Call getUser function from userService with the extracted ID
         const user = await userService.getUserById(userId);
 
-        console.log(user);
+        
 
         // Send the user object as the response
         res.status(200).json(user);

@@ -13,7 +13,7 @@ const TableRow = ({ user, setNeedReload }) => {
 	return (
 		<>
 			{isDeleteUserModelOpen && (
-				// tr and td for Warning:: Warning: validateDOMNesting(...): <div> cannot appear as a child of <tbody>.
+
 				<tr>
 					<td>
 						<DeleteUserModel
@@ -26,7 +26,7 @@ const TableRow = ({ user, setNeedReload }) => {
 			)}
 
 			{isEditUserModelOpen && (
-				// tr and td for Warning:: Warning: validateDOMNesting(...): <div> cannot appear as a child of <tbody>.
+
 				<tr>
 					<td>
 						<EditUserModel

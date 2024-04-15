@@ -75,7 +75,7 @@ const NavBar = () => {
 								: "flex gap-3"
 						}
 					>
-						{/* <img src='/maxlence-logo.png' className='h-8' alt='Maxlence Logo' /> */}
+
 						<span className='self-center text-2xl font-semibold whitespace-nowrap dark:text-white hover:opacity-60 duration-300'>
 							Maxlence
 						</span>
@@ -157,9 +157,9 @@ const NavBar = () => {
 							onClick={handleIsMobileOpenMenu}
 						>
 							<span className='sr-only'>Open main menu</span>
-							{/* <span className='w-5 h-5'> */}
+
 							<GiHamburgerMenu size={20} />
-							{/* </span> */}
+							
 						</button>
 					</div>
 

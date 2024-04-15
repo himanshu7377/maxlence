@@ -14,7 +14,7 @@ import handleModelClose from "../utils/handleModelClose";
 import { motion } from "framer-motion";
 import {addTokenToHeaders} from "../constants/addTokenToHeaders";
 
-// shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
+
 
 const EditUserModel = ({ user, isEditUserModelOpen, setIsEditUserModelOpen, setNeedReload }) => {
 	const {
@@ -24,12 +24,13 @@ const EditUserModel = ({ user, isEditUserModelOpen, setIsEditUserModelOpen, setN
 		watch,
 	} = useForm();
 
-	// console.log(user);
+	
 
 
 
 	
 
+	const [updatedUser, setUpdatedUser] = useState(null)
 
 	const [isLoading, setIsLoading] = useState(false);
 	const ref = useRef(null);
@@ -46,7 +47,9 @@ const EditUserModel = ({ user, isEditUserModelOpen, setIsEditUserModelOpen, setN
 	}, [setIsEditUserModelOpen, isLoading]);
 
 	const onSubmit = async (localdata) => {
-		preventDefault()
+
+		console.log("localdata",localdata)
+		
 		console.log("onsubmit",user)
 		try {
 			if (loggedInUser.role !== "admin") {
@@ -63,13 +66,6 @@ const EditUserModel = ({ user, isEditUserModelOpen, setIsEditUserModelOpen, setN
 
 			addTokenToHeaders()
 
-			// const formData = new FormData();
-			// formData.append("fullName", localdata.fullName);
-			// formData.append("role", localdata.role);
-			const bodyContent = {
-				fullName: formData.fullName,
-				role: formData.role
-			};
 
 			
 
@@ -88,6 +84,7 @@ const EditUserModel = ({ user, isEditUserModelOpen, setIsEditUserModelOpen, setN
 			setIsLoading(false);
 			setIsEditUserModelOpen(false);
 			setNeedReload((pV) => !pV);
+			setUpdatedUser(data)
 			
 			return toast.success(`${data?.message || "Successfully updated!"}`);
 		} catch (error) {
@@ -147,8 +144,7 @@ const EditUserModel = ({ user, isEditUserModelOpen, setIsEditUserModelOpen, setN
 										{...register("fullName", { required: true })}
 										className={`${reuseInputClassnames}`}
 										placeholder='Full Name'
-										
-										// onChange={handleInputChange}
+						
 										defaultValue={user?.fullName}
 										
 									/>
@@ -172,7 +168,7 @@ const EditUserModel = ({ user, isEditUserModelOpen, setIsEditUserModelOpen, setN
 										id='role'
 										{...register("role", { required: true })}
 										className={`${reuseInputClassnames} `}
-										// onChange={handleInputChange}
+
 										defaultValue={user?.role}
 										
 									>
@@ -203,17 +199,17 @@ const EditUserModel = ({ user, isEditUserModelOpen, setIsEditUserModelOpen, setN
 									Close
 								</button>
 								<button
-									// disabled={isLoading}
+									disabled={isLoading}
 									type='submit'
 
 									className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 duration-200 flex justify-center items-center disabled:cursor-wait disabled:opacity-50'
 								>
 									<span className='ml-1'>Edit user</span>
-									{/* {isLoading && (
+									{isLoading && (
 										<span className='mt-0.5 ml-1'>
 											<Spinner />
 										</span>
-									)} */}
+									)}
 								</button>
 							</div>
 						</form>
