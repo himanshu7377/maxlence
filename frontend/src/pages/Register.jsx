@@ -293,22 +293,14 @@ const Register = () => {
 							)}
 						</button>
 						<div className='social-accounts flex w-full items-center justify-center gap-6 md:gap-6'>
-							<div id='google' className='cursor-pointer' title='Login with Google'>
-								{/* onClick={loginWithGoogle} */}
-								<FcGoogle size={35} />
+						<div id='google' className='cursor-pointer flex space-x-4' title='Login with Google'>
+							<p className="mt-1 text-white">LOGIN With </p>
+							<div className="mb-10 ">
+							<FcGoogle size={40} />
 							</div>
-							<div
-								id='github'
-								className='cursor-pointer dark:text-white text-black'
-								title='Login with Github'
-							>
-								{/* onClick={loginWithGitHub} */}
-								<ImGithub size={35} />
-							</div>
-							<div id='twitter' className='cursor-pointer' title='Login with Twitter'>
-								{/* onClick={loginWithTwitter} */}
-								<BsTwitterX size={30} />
-							</div>
+							
+						
+						</div>
 						</div>
 						<div className='text-sm font-medium text-gray-800 dark:text-gray-400'>
 							Already have an account?{" "}
